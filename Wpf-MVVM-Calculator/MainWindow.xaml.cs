@@ -23,6 +23,7 @@ namespace Wpf_MVVM_Calculator
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new CalcViewModel();
         }
     }
 }

@@ -5,78 +5,120 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf_MVVM_Calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="300">
+        Title="MainWindow" Height="450" Width="300">
+    <Window.Resources>
+        <local:CalcViewModel x:Key="calcViewModel"/>
+    </Window.Resources>
+    
     <Grid>
         <!-- Grid의 행과 열을 정의 -->
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <!-- 최상단 행을 위한 내부 그리드 정의, 출력텍스트박스, BACK버튼, Clear버튼 -->
-        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4">
+
+        <Grid Grid.Row="0" Grid.Column="0">
             <Border BorderThickness="1" BorderBrush="Black">
-                <TextBlock FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"
-                           Text="{Binding DisplayText, Source={StaticResource calcViewModel}}"/>
+            <TextBlock FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Text="{Binding DisplayText, Source={StaticResource calcViewModel}}"/>
             </Border>
         </Grid>
 
-        <!-- 버튼의 Command 이벤트에 Command명을 지정하고 바인딩-->
-        <!-- ViewModel 클래스에서 DeleteCharCommand 속성이 정의되야 하고 -->
-        <!-- 실제 버튼이 눌러졌을 때 Command에 대한 이벤트 핸들러를 정의해야 한다.-->
-        <Button Content="BACK"
-                Command=""
-                Grid.Row="1" Grid.Column="2"/>
-        <Button Content="Clear"
-                Command=""
-                Grid.Row="1" Grid.Column="3"/>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Button Content="1"
-                Command=""
-                Grid.Row="2" Grid.Column="0"/>
-        <Button Content="2"
-                Command=""
-                Grid.Row="2" Grid.Column="1"/>
-        <Button Content="3"
-                Command=""
-                Grid.Row="2" Grid.Column="2"/>
-        <Button Content="4"
-                Command=""
-                Grid.Row="2" Grid.Column="3"/>
+            <!-- 최상단 행을 위한 내부 그리드 정의, 출력텍스트박스, BACK버튼, Clear버튼 -->
+            <Button Content="Clear"
+                    Command="{Binding ClearCommand,Source={StaticResource calcViewModel}}"
+                    Grid.Row="0" Grid.Column="0"/>
+            <Button Content="BACK"
+                    Command="{Binding DeleteCharCommand,Source={StaticResource calcViewModel}}"
+                    Grid.Row="0" Grid.Column="1"/>
+            <Button Content="/"
+                    Command="{Binding OperationCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="/"
+                    Grid.Row="0" Grid.Column="2"/>
+            <Button Content="*"
+                    Command="{Binding OperationCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="*"
+                    Grid.Row="0" Grid.Column="3"/>
+            <Button Content="-"
+                    Command="{Binding OperationCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="-"
+                    Grid.Row="1" Grid.Column="3"/>
+            <Button Content="+"
+                    Command="{Binding OperationCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="+"
+                    Grid.Row="2" Grid.Column="3"/>
+            <Button Content="="
+                    Command="{Binding OperationCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="="
+                    Grid.Row="3" Grid.Column="3" Grid.RowSpan="2"/>
 
-        <Button Content="5"
-                Command=""
-                Grid.Row="3" Grid.Column="0"/>
-        <Button Content="6"
-                Command=""
-                Grid.Row="3" Grid.Column="1"/>
-        <Button Content="7"
-                Command=""
-                Grid.Row="3" Grid.Column="2"/>
-        <Button Content="8"
-                Command=""
-                Grid.Row="3" Grid.Column="3"/>
+            <Button Content="7"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="7"
+                    Grid.Row ="1" Grid.Column="0"/>
+            <Button Content="8"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="8"
+                    Grid.Row="1" Grid.Column="1"/>
+            <Button Content="9"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="9"
+                    Grid.Row="1" Grid.Column="2"/>
 
-        <Button Content="0"
-                Command=""
-                Grid.Row="4" Grid.Column="0"/>
-        <Button Content="."
-                Command=""
-                Grid.Row="4" Grid.Column="1"/>
-        <Button Content="="
-                Command=""
-                Grid.Row="4" Grid.Column="2"/>
-        <Button Content="/"
-                Command=""
-                Grid.Row="4" Grid.Column="3"/>
+            <Button Content="4"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="4"
+                    Grid.Row="2" Grid.Column="0"/>
+            <Button Content="5"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="5"
+                    Grid.Row="2" Grid.Column="1"/>
+            <Button Content="6"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="6"
+                    Grid.Row="2" Grid.Column="2"/>
+
+            <Button Content="1"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="1"
+                    Grid.Row="3" Grid.Column="0"/>
+            <Button Content="2"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="2"
+                    Grid.Row="3" Grid.Column="1"/>
+            <Button Content="3"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="3"
+                    Grid.Row="3" Grid.Column="2"/>
+
+            <Button Content=""
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter=""
+                    Grid.Row="4" Grid.Column="0"/>
+            <Button Content="0"
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="0"
+                    Grid.Row="4" Grid.Column="1"/>
+            <Button Content="."
+                    Command="{Binding AddCharCommand,Source={StaticResource calcViewModel}}"
+                    CommandParameter="."
+                    Grid.Row="4" Grid.Column="2"/>
+
+        </Grid>
     </Grid>
 </Window>
